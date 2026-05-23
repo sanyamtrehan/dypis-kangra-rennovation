@@ -55,7 +55,6 @@ export interface AdmissionProcess {
 }
 
 export interface Faculty {
-  employeeCode: number;
   name: string;
   qualification?: string;
   designation: string;
@@ -95,5 +94,8 @@ export interface Footer {
 }
 
 export class Doc {
-  constructor(public name: string, public document: string) {}
+  constructor(
+    public name: string,
+    public document: string,
+  ) {}
 }
