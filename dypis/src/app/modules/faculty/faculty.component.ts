@@ -31,7 +31,6 @@ export class FacultyComponent implements AfterViewInit {
   @ViewChild('facultySection') facultySection!: ElementRef<HTMLDivElement>;
 
   readonly headers: FacultyHeaders[] = [
-    { header: 'employeeCode', sortBy: SortByEnum.NONE },
     {
       header: 'name',
       sortBy: SortByEnum.NONE,
@@ -46,7 +45,7 @@ export class FacultyComponent implements AfterViewInit {
     },
   ];
 
-  readonly mobileHeaders: FacultyHeaders[] = this.headers.slice(1);
+  readonly mobileHeaders: FacultyHeaders[] = this.headers.slice();
 
   constructor() {
     this.attachListener();
@@ -56,7 +55,7 @@ export class FacultyComponent implements AfterViewInit {
     setTimeout(() => {
       this.updateAnimationStateOnScroll(
         this.facultySection?.nativeElement,
-        this.state
+        this.state,
       );
     }, 0);
   }
@@ -75,7 +74,9 @@ export class FacultyComponent implements AfterViewInit {
 
         searchVal = searchVal.replace(/ {2,}/g, ' ').toLowerCase();
         this.filteredFaculty.next(
-          faculty?.filter((el) => el.name.toLowerCase().indexOf(searchVal) > -1)
+          faculty?.filter(
+            (el) => el.name.toLowerCase().indexOf(searchVal) > -1,
+          ),
         );
       });
   }
