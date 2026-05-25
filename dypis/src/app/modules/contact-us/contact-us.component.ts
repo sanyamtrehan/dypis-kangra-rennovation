@@ -29,12 +29,12 @@ export class ContactUsComponent implements AfterViewInit {
   faPhoneVolume = faPhoneVolume;
   faCalendarAlt = faCalendarAlt;
   contactNoPrimary = '+91 7807080536';
-  contactNoSecondary = '+91 7807586358';
+  // contactNoSecondary = '+91 7807586358';
   email = 'dypisk@gmail.com';
 
   constructor(private sanitizer: DomSanitizer) {
     this.mapsEmbedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-      environment.mapsEmbedUrl
+      environment.mapsEmbedUrl,
     );
   }
 
@@ -42,7 +42,7 @@ export class ContactUsComponent implements AfterViewInit {
     setTimeout(() => {
       this.updateAnimationStateOnScroll(
         this.contactUsSection?.nativeElement,
-        this.state
+        this.state,
       );
       this.updateXVal();
     }, 0);
