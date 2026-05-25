@@ -14,9 +14,7 @@
       <div class="base-heading">Contact us</div>
       <iframe
         class="overlay-map"
-        [ngStyle]="{
-          transform: 'translateX(-' + offsetVal + 'px)'
-        }"
+        [style.transform]="'translateX(-' + offsetVal + 'px)'"
         frameborder="0"
         scrolling="yes"
         marginheight="0"
@@ -64,16 +62,16 @@
             <div fxLayout="column" class="pt-8">
               <div class="contact-info-sub-heading">Phone</div>
               <div class="contact-info-content">{{ contactNoPrimary }}</div>
-              <div class="contact-info-content">
+              <!-- <div class="contact-info-content">
                 {{ contactNoSecondary }}
-              </div>
+              </div> -->
             </div>
           </div>
           <div iv fxLayout="row" fxLayoutGap="24px">
             <fa-icon class="contact-info-icon" [icon]="faCalendarAlt"></fa-icon>
             <div fxLayout="column" class="pt-8">
               <div class="contact-info-sub-heading">Time</div>
-              <div class="contact-info-content">09:00 - 15:00</div>
+              <div class="contact-info-content">09:00 - 17:00</div>
               <div class="contact-info-content">Sunday - Closed</div>
             </div>
           </div>
