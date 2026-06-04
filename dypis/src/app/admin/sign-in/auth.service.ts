@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { AutSpecs, AuthResponseData, SignIn } from './sign.in.model';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -11,12 +12,11 @@ export class AuthService {
 
   constructor(
     private readonly http: HttpClient,
-    private readonly router: Router
+    private readonly router: Router,
   ) {}
 
   login(payload: SignIn) {
-    const firebaseUrl =
-      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDhDqBDvnUYXHPMRQ2XKN77yMVdUzFDQ0E';
+    const firebaseUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.firebaseConfig.apiKey}`;
     this.http
       .post<AuthResponseData>(firebaseUrl, {
         ...payload,
@@ -31,7 +31,7 @@ export class AuthService {
   autoLogout(expirationDuration: number) {
     this._tokenExpirationTimer = setTimeout(
       () => this.logout(),
-      expirationDuration
+      expirationDuration,
     );
   }
 
@@ -71,7 +71,7 @@ export class AuthService {
     this.autoLogout(expiresIn * 1000);
     localStorage.setItem(
       AutSpecs.LOCAL_STORAGE_KEY,
-      JSON.stringify({ token, expirationDate })
+      JSON.stringify({ token, expirationDate }),
     );
     this.router.navigate(['/admin/main']);
   }
