@@ -1,55 +1,99 @@
 @import "/src/app/utils/variables.scss";
 
-.docs-card {
-  border-radius: 12px;
-  transition: transform 400ms;
-  overflow: hidden;
+.cbse-section {
+  margin-bottom: 40px;
 
-  mat-card-header {
-    justify-content: center;
-  }
-
-  &__icon {
-    box-sizing: content-box;
-    width: 60px;
-    height: 60px;
-    display: block;
-    margin: auto;
-    padding: 44px;
-  }
-
-  &:nth-of-type(odd) mat-card-header,
-  &:nth-of-type(odd) &__icon {
-    color: $ORANGE;
-  }
-
-  &:nth-of-type(even) mat-card-header,
-  &:nth-of-type(even) &__icon {
+  h2 {
+    margin-bottom: 16px;
+    font-size: 24px;
+    font-weight: 600;
     color: $DARK-GREEN;
   }
 
-  &::after {
-    content: "";
-    background: black;
-    height: 100%;
-    width: 100%;
-    display: inline-block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    transition: opacity 700ms;
+  h3 {
+    margin: 32px 0 16px;
+    font-size: 18px;
+    font-weight: 600;
+    color: $ORANGE;
+  }
+}
 
-    &:hover {
-      opacity: 0.3;
+.cbse-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  margin-bottom: 24px;
+  box-shadow: 0px 3px 20px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  overflow: hidden;
+
+  th,
+  td {
+    padding: 14px 16px;
+    border: 1px solid #e5e5e5;
+    text-align: left;
+    vertical-align: top;
+    line-height: 1.5;
+  }
+
+  th {
+    background: #f7f7f7;
+    font-weight: 600;
+    color: #333;
+  }
+
+  tbody tr:nth-child(even) {
+    background: #fafafa;
+  }
+
+  tbody tr:hover {
+    background: #f3f8f5;
+  }
+}
+
+.doc-link {
+  color: $ORANGE;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+  }
+}
+
+.note-text {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #666;
+  line-height: 1.6;
+}
+
+.empty-value {
+  color: #999;
+}
+
+@media (max-width: 768px) {
+  .cbse-section {
+    h2 {
+      font-size: 20px;
+    }
+
+    h3 {
+      font-size: 16px;
     }
   }
 
-  &:hover {
-    transform: scale(1.1);
+  .cbse-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
 
-    &::after {
-      opacity: 0.2;
+    th,
+    td {
+      min-width: 160px;
     }
   }
 }

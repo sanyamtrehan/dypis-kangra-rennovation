@@ -4,45 +4,219 @@
   class="base-page"
   (window:scroll)="updateAnimationStateOnScroll(docsSection, state)"
 >
-  <div class="max-width-container" fxLayout="column" fxLayoutGap="32px">
-    <div class="base-heading">CBSE Documents</div>
-    <mat-form-field
-      [ngStyle]="{ maxWidth: 'unset' }"
-      appearance="outline"
-      class="no-error-field custom-form-field"
-    >
-      <mat-label>Search Documents</mat-label>
-      <input
-        matInput
-        placeholder="Document Name"
-        [formControl]="docsFilterCtrl"
-      />
-      <fa-icon class="search-icon" matSuffix [icon]="faSearch"></fa-icon>
-    </mat-form-field>
+  <div
+    *ngIf="docs$ | async as docs"
+    class="max-width-container"
+    fxLayout="column"
+    fxLayoutGap="32px"
+  >
+    <div class="base-heading">Mandatory Public Disclosure (Appendix-IX)</div>
 
-    <div
-      *ngIf="docs$ | async as docs"
-      class="base-info"
-      gdColumns="repeat(auto-fill, minmax(350px, 1fr))"
-      gdGap="44px"
-    >
-      <mat-card
-        *ngFor="
-          let doc of docs | filterDocs : docsFilterCtrl.value;
-          let i = index
-        "
-        class="mat-elevation-z4 cursor-pointer docs-card"
-        (click)="onSelectDoc(doc.document)"
-      >
-        <mat-card-header>
-          <mat-card-title>{{ doc.name }}</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <svg class="docs-card__icon">
-            <use xlink:href="/assets/images/sprite.svg#icon-pdf"></use>
-          </svg>
-        </mat-card-content>
-      </mat-card>
-    </div>
+    <!-- A. General Information -->
+    <section class="cbse-section">
+      <h2>A: General Information</h2>
+
+      <table class="cbse-table">
+        <thead>
+          <tr>
+            <th>S.No.</th>
+            <th>Information</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let item of generalInformation">
+            <td>{{ item.id }}</td>
+            <td>{{ item.label }}</td>
+            <td>{{ item.value || "-" }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- B. Documents and Information -->
+    <section class="cbse-section">
+      <h2>B: Documents and Information</h2>
+
+      <table class="cbse-table">
+        <thead>
+          <tr>
+            <th>S.No.</th>
+            <th>Document Name</th>
+            <th>Document</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let doc of docs; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ doc.name }}</td>
+
+            <td>
+              <a
+                *ngIf="doc.document"
+                class="doc-link"
+                (click)="onSelectDoc(doc.document)"
+              >
+                Click Here to View
+              </a>
+
+              <span *ngIf="!doc.document"> Not Uploaded </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="note-text">
+        Note: Schools must upload genuine PDF copies of the required
+        certificates and documents as per CBSE guidelines.
+      </p>
+    </section>
+
+    <!-- C. Result and Academics -->
+    <section class="cbse-section">
+      <h2>C: Result and Academics</h2>
+
+      <table class="cbse-table">
+        <thead>
+          <tr>
+            <th>S.No.</th>
+            <th>Information</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Fee Structure of the School</td>
+            <td>Available on Request</td>
+          </tr>
+
+          <tr>
+            <td>2</td>
+            <td>Annual Academic Calendar</td>
+            <td>Academic Session 2025-26</td>
+          </tr>
+
+          <tr>
+            <td>3</td>
+            <td>List of School Management Committee (SMC)</td>
+            <td>Updated</td>
+          </tr>
+
+          <tr>
+            <td>4</td>
+            <td>List of Parents Teachers Association (PTA) Members</td>
+            <td>Updated</td>
+          </tr>
+
+          <tr>
+            <td>5</td>
+            <td>Last Three-Year Result of the Board Examination</td>
+            <td>Available Below</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Result Class: X</h3>
+
+      <table class="cbse-table">
+        <thead>
+          <tr>
+            <th>S.No.</th>
+            <th>Year</th>
+            <th>No. of Registered Students</th>
+            <th>No. of Students Passed</th>
+            <th>Pass Percentage</th>
+            <th>Remarks</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let result of classXResults">
+            <td>{{ result.id }}</td>
+            <td>{{ result.year }}</td>
+            <td>{{ result.registered }}</td>
+            <td>{{ result.passed }}</td>
+            <td>{{ result.percentage }}</td>
+            <td>{{ result.remarks }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Result Class: XII</h3>
+
+      <table class="cbse-table">
+        <thead>
+          <tr>
+            <th>S.No.</th>
+            <th>Year</th>
+            <th>No. of Registered Students</th>
+            <th>No. of Students Passed</th>
+            <th>Pass Percentage</th>
+            <th>Remarks</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let result of classXIIResults">
+            <td>{{ result.id }}</td>
+            <td>{{ result.year }}</td>
+            <td>{{ result.registered }}</td>
+            <td>{{ result.passed }}</td>
+            <td>{{ result.percentage }}</td>
+            <td>{{ result.remarks }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- D. Staff -->
+    <section class="cbse-section">
+      <h2>D: Staff (Teaching)</h2>
+
+      <table class="cbse-table">
+        <thead>
+          <tr>
+            <th>S.No.</th>
+            <th>Information</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let item of staffInformation">
+            <td>{{ item.id }}</td>
+            <td>{{ item.label }}</td>
+            <td>{{ item.value || "-" }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- E. School Infrastructure -->
+    <section class="cbse-section">
+      <h2>E: School Infrastructure</h2>
+
+      <table class="cbse-table">
+        <thead>
+          <tr>
+            <th>S.No.</th>
+            <th>Information</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let item of infrastructureInformation">
+            <td>{{ item.id }}</td>
+            <td>{{ item.label }}</td>
+            <td>{{ item.value || "-" }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
   </div>
 </div>
